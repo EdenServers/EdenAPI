@@ -12,7 +12,7 @@ You have to install Docker, Ruby v2.2. This API is supposed to be executed insid
 
 Start by cloning the EdenAPI repository:
 
-````git clone https://github.com/EdenServers/EdenAPI.git```
+```git clone https://github.com/EdenServers/EdenAPI.git```
 
 ## Installing
 
@@ -29,5 +29,5 @@ We suggest you to start your api container with :
   
 # Usage
 
-* Still needs to be written *
+* Still needs to be written
 
