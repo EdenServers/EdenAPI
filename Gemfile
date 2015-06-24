@@ -27,9 +27,11 @@ group :development, :test do
 
   ### Tests gems ###
   gem 'airborne'
+  gem 'coveralls', require: false
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'database_cleaner'
+  gem 'simplecov', :require => false
 end
 
 group :development do

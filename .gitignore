@@ -21,3 +21,6 @@
 
 # Ignore Dotenv configuration file
 /configuration.env
+
+#Ignore coverage reports
+/coverage
