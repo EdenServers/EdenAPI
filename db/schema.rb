@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20150620184309) do
     t.string   "name"
     t.text     "description"
     t.text     "command"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "docker_container_id"
     t.integer  "image_id"
   end

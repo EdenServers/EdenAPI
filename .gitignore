@@ -18,3 +18,9 @@
 
 # Ignore all RubyMine files
 /.idea/*
+
+# Ignore Dotenv configuration file
+/configuration.env
+
+#Ignore coverage reports
+/coverage
