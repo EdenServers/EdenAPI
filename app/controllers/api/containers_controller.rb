@@ -5,32 +5,33 @@ class Api::ContainersController < ApplicationController
 
   def create
     container = Container.new(container_params)
-    container.image = Image.find(params[:container][:image_id])
-    if container.save
-      render status: 200, json:{container: container}
-    else
-      render status: 500, json: {error: container.errors}
+
+    begin
+      container.image = Image.find(params[:container][:image_id])
+      container.save ? render(status: 200, json:{ container: container }) : render(status: 500, json: { error: container.errors })
+    rescue ActiveRecord::RecordNotFound => e
+      render status: 500, json: { error:  e }
     end
   end
 
   def delete
     container = Container.find(params[:id])
-    if !container.nil?
+
+    begin
       container.destroy
-      if container.destroyed?
-        render :nothing, status: 200
-      else
-        render status: 200, json: {error: container.errors}
-      end
+      container.destroyed? ? render(:nothing, status: 200) : render(status: 200, json: { error: container.errors })
+    rescue ActiveRecord::RecordNotFound => e
+      render status: 500, json: { error:  e }
     end
   end
 
   def update
     container = Container.find(params[:id])
-    if container.update_attributes(container_params)
-      render status: 200, json: {container: container}
-    else
-      render status: 500, json: {error: container.errors}
+
+    begin
+      container.update_attributes(container_params) ? render(status: 200, json: { container: container }) : render(status: 500, json: { error: container.errors })
+    rescue ActiveRecord::RecordNotFound => e
+      render status: 500, json: { error:  e }
     end
   end
 

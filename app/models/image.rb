@@ -1,8 +1,7 @@
 class Image < ActiveRecord::Base
   after_create :start_docker_creation_job
 
-  validates :repo, :presence => true
-  validates :name, :presence => true
+  validates_presence_of :repo, :name
 
   has_many :containers
 
