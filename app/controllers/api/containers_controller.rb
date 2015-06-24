@@ -5,24 +5,32 @@ class Api::ContainersController < ApplicationController
 
   def create
     container = Container.new(container_params)
-    container.image = Image.find_by_image_id(params[:image_id])
-    container.save
-    render json: container
+    container.image = Image.find(params[:container][:image_id])
+    if container.save
+      render status: 200, json:{container: container}
+    else
+      render status: 500, json: {message: 'Couldn\'t save the container', error: container.errors}
+    end
   end
 
   def delete
     container = Container.find(params[:id])
     if !container.nil?
-      container.destroy!
+      container.destroy
+      if container.destroyed?
+        render :nothing, status: 200
+      else
+        render status: 200, json: {message: 'Couldn\'t delete the container', error: container.errors}
+      end
     end
   end
 
   def update
     container = Container.find(params[:id])
     if container.update_attributes(container_params)
-      render json: container
+      render status: 200, json: {container: container}
     else
-      render json: {error: 'Couldn\'t update the container'}
+      render status: 500, json: {message: 'Couldn\'t update the container', error: container.errors}
     end
   end
 
