@@ -18,6 +18,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
+  gem "codeclimate-test-reporter", require: false
   gem 'did_you_mean'
   gem 'dotenv-rails'
   gem 'puma'
@@ -31,7 +32,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
 end
 
 group :development do
