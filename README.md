@@ -1,6 +1,6 @@
 # EdenAPI
 
-EdenAPI is the main component of EdenServers v3. This API HAS to be started in a container without any exposed ports has there is no built-in authentification system.
+EdenAPI is the main component of EdenServers v3. This API HAS to be started in a container without any exposed ports as there is no built-in authentification system.
 
 # Getting Started
 
@@ -17,15 +17,12 @@ Start by cloning the EdenAPI repository:
 ## Installing
 
 ```bundle install```
-Then, you can simply start the API with rails s -b 0.0.0.0 on a developmnent system.
+Then, you can simply start the API with rails s -b 0.0.0.0 on a development system.
 
-If you want to run this API inside a container, you'll need to mount /run/docker.sock inside your container.
+If you want to run this API inside a container, you will need to mount /run/docker.sock inside your container.
 We suggest you to start your api container with : 
 
-```docker run -it \
-  -v /run/docker.sock:/run/docker.sock \
-  -p 8080:3000 \
-  foo/bar /bin/sh```
+```docker run -it -v /run/docker.sock:/run/docker.sock -p 8080:3000 foo/bar /bin/sh```
   
 # Usage
 
