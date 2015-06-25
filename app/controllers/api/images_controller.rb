@@ -1,4 +1,5 @@
 class Api::ImagesController < ApplicationController
+  include GenericMethodsConcern
   include HttpResponseConcern
 
   def index
@@ -11,13 +12,7 @@ class Api::ImagesController < ApplicationController
   end
 
   def delete
-    begin
-      image = Image.find(params[:id])
-      image.destroy
-      image.destroyed? ? render_200_nothing : render_500_error(image)
-    rescue ActiveRecord::RecordNotFound => e
-      render_500_ar_not_found e
-    end
+    delete_object(Image, params[:id])
   end
 
   def update

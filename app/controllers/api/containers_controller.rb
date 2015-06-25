@@ -1,4 +1,5 @@
 class Api::ContainersController < ApplicationController
+  include GenericMethodsConcern
   include HttpResponseConcern
 
   def index
@@ -16,13 +17,7 @@ class Api::ContainersController < ApplicationController
   end
 
   def delete
-    begin
-      container = Container.find(params[:id])
-      container.destroy
-      container.destroyed? ? render_200_nothing : render_500_error(container)
-    rescue ActiveRecord::RecordNotFound => e
-      render_500_ar_not_found e
-    end
+    delete_object(Container, params[:id])
   end
 
   def update
