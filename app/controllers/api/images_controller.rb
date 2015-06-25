@@ -4,12 +4,8 @@ class Api::ImagesController < ApplicationController
   end
 
   def create
-    begin
       image = Image.new(image_params)
       image.save ? render(status: 200, json:{ image: image }) : render(status: 500, json: { error: image.errors })
-    rescue ActiveRecord::RecordNotFound => e
-      render status: 500, json: { error:  e }
-    end
   end
 
   def delete
