@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620184309) do
+ActiveRecord::Schema.define(version: 20150625203503) do
 
   create_table "containers", force: :cascade do |t|
     t.string   "name"
@@ -40,13 +40,13 @@ ActiveRecord::Schema.define(version: 20150620184309) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "images", force: :cascade do |t|
-    t.string   "image_id"
+    t.string   "docker_image_id"
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "repo"
-    t.boolean  "ready",       default: false
+    t.boolean  "ready",           default: false
   end
 
 end

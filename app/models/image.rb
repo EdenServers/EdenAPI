@@ -11,7 +11,7 @@ class Image < ActiveRecord::Base
 
   def create_docker_image
     image = Docker::Image.create('fromImage' => self.repo)
-    self.image_id=image.id
+    self.docker_image_id=image.id
     self.ready = true
     self.save
   end
