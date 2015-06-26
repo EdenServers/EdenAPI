@@ -21,12 +21,7 @@ class Api::ContainersController < ApplicationController
   end
 
   def update
-    begin
-      container = Container.find(params[:id])
-      container.update_attributes(container_params) ? render_200_container : render_500_error(container)
-    rescue ActiveRecord::RecordNotFound => e
-      render_500_ar_not_found e
-    end
+    update_object(Container, params[:id])
   end
 
   private

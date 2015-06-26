@@ -16,12 +16,7 @@ class Api::ImagesController < ApplicationController
   end
 
   def update
-    begin
-      image = Image.find(params[:id])
-      image.update_attributes(image_params) ? render_200_image : render_500_error(image)
-    rescue ActiveRecord::RecordNotFound => e
-      render_500_ar_not_found e
-    end
+    update_object(Image, params[:id])
   end
 
   private
