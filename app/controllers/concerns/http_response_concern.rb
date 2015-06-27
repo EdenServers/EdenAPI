@@ -12,4 +12,8 @@ module HttpResponseConcern
   def render_200_nothing
     render :nothing, status: 200
   end
+
+  def render_200_object(object)
+    render status: 200, json: object
+  end
 end

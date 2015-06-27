@@ -8,7 +8,7 @@ class Api::ImagesController < ApplicationController
 
   def create
       image = Image.new(image_params)
-      image.save ? render_200_image : render_500_error(image)
+      image.save ? render_200_object(image) : render_500_error(image)
   end
 
   def delete
@@ -22,9 +22,5 @@ class Api::ImagesController < ApplicationController
   private
   def image_params
     params.require(:image).permit(:repo, :name)
-  end
-
-  def render_200_image
-    render status: 200, json: { image: image }
   end
 end

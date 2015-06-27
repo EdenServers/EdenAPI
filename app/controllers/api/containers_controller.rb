@@ -10,7 +10,7 @@ class Api::ContainersController < ApplicationController
     begin
       container = Container.new(container_params)
       container.image = Image.find(params[:container][:image_id])
-      container.save ? render_200_container : render_500_error(container)
+      container.save ? render_200_object(container) : render_500_error(container)
     rescue ActiveRecord::RecordNotFound => e
       render_500_ar_not_found e
     end
@@ -27,9 +27,5 @@ class Api::ContainersController < ApplicationController
   private
   def container_params
     params.require(:container).permit(:name, :description, :image_id, :command)
-  end
-
-  def render_200_container
-    render status: 200, json: { container: container }
   end
 end
