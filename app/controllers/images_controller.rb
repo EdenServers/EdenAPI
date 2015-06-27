@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
       image.save ? render_200_object(image) : render_500_error(image)
   end
 
-  def delete
+  def destroy
     delete_object(Image, params[:id])
   end
 
