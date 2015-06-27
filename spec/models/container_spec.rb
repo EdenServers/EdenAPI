@@ -57,5 +57,20 @@ RSpec.describe Container, type: :model do
     end
   end
 
-  
+  describe "Stop" do
+    it "shouldn't stop the container if its not running" do
+      image = FactoryGirl.create(:image_with_container)
+      container = image.containers.last
+      container.stop
+      expect(container.get_docker_object.json['State']['Running']).to be_falsey
+    end
+
+    it "shouldn't stop the container if its running" do
+      image = FactoryGirl.create(:image_with_container)
+      container = image.containers.last
+      container.start
+      container.stop
+      expect(container.get_docker_object.json['State']['Running']).to be_falsey
+    end
+  end
 end
