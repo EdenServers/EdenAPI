@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: containers
+#
+#  id                  :INTEGER          not null, primary key
+#  name                :varchar
+#  description         :text
+#  command             :text
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  docker_container_id :varchar
+#  image_id            :integer
+#
+
 class Container < ActiveRecord::Base
   belongs_to :image
 
@@ -11,7 +25,7 @@ class Container < ActiveRecord::Base
 
   def stop
     container = get_docker_object
-    container.stop unless container.nil? || container.json['State']['Running']
+    container.stop if !container.nil? && container.json['State']['Running']
   end
 
   def get_docker_object
