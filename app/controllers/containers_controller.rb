@@ -16,12 +16,12 @@ class ContainersController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     delete_object(Container, params[:id])
   end
 
   def update
-    update_object(Container, params[:id])
+    update_object(Container, params[:id], container_params)
   end
 
   private

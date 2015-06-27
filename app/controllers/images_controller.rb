@@ -16,7 +16,7 @@ class ImagesController < ApplicationController
   end
 
   def update
-    update_object(Image, params[:id])
+    update_object(Image, params[:id], image_params)
   end
 
   private

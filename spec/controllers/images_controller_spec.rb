@@ -35,9 +35,23 @@ RSpec.describe ImagesController, type: :controller do
 
   describe "PUT /images/:id" do
     it "should return a 500 error if it can't find the object" do
+      params = {
+          name: "Test",
+      }
+
+      put 'update', id: 69, image: params
+      expect_status(500)
     end
 
     it "should update the image if params are valids" do
+      image = FactoryGirl.create(:image)
+      params = {
+          name: "Test",
+      }
+
+      put 'update', id: image.id, image: params
+      expect_status(200)
+      expect_json({ name: "Test" })
     end
   end
 

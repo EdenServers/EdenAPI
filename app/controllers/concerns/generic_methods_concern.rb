@@ -11,10 +11,10 @@ module GenericMethodsConcern
     end
   end
 
-  def update_object(object, id)
+  def update_object(object, id, params)
     begin
       item = object.find(id)
-      item.update_attributes(image_params) ? render_200_object(item) : render_500_error(image)
+      item.update_attributes(params) ? render_200_object(item) : render_500_error(item)
     rescue ActiveRecord::RecordNotFound => e
       render_500_ar_not_found e
     end
