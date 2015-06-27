@@ -20,7 +20,7 @@ group :development, :test do
   gem 'byebug'
   gem "codeclimate-test-reporter", require: false
   gem 'did_you_mean'
-  gem 'dotenv-rails'
+  gem 'factory_girl'
   gem 'puma'
   gem 'pry-rails'
   gem 'spring'
@@ -40,11 +40,12 @@ group :development do
   gem 'binding_of_caller'
 end
 
-#API Doc
-gem 'apipie-rails', :github => 'Apipie/apipie-rails'
+#Config
+gem 'dotenv-rails'
 
-#Docker API
+#Required
+gem 'delayed_job_active_record'
 gem 'docker-api'
 
-#Delayed job
-gem 'delayed_job_active_record'
+#API Doc
+gem 'apipie-rails', :github => 'Apipie/apipie-rails'

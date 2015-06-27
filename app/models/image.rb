@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id              :INTEGER          not null, primary key
+#  docker_image_id :varchar
+#  name            :varchar
+#  description     :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  repo            :varchar
+#  ready           :boolean          default(FALSE)
+#
+
 class Image < ActiveRecord::Base
   after_create :start_docker_creation_job
 

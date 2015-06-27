@@ -20,7 +20,7 @@
 /.idea/*
 
 # Ignore Dotenv configuration file
-/configuration.env
+/.env
 
 #Ignore coverage reports
 /coverage
