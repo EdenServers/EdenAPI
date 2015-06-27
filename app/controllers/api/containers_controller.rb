@@ -28,8 +28,4 @@ class Api::ContainersController < ApplicationController
   def container_params
     params.require(:container).permit(:name, :description, :image_id, :command)
   end
-
-  def render_200_container
-    render status: 200, json: { container: container }
-  end
 end

@@ -23,8 +23,4 @@ class Api::ImagesController < ApplicationController
   def image_params
     params.require(:image).permit(:repo, :name)
   end
-
-  def render_200_image
-    render status: 200, json: { image: image }
-  end
 end
