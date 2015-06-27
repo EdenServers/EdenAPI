@@ -1,3 +1,3 @@
 require 'docker'
 
-Docker.url = ENV.fetch('DOCKER_URL')
+Docker.url = ENV['DOCKER_URL'] ||= "unix:///var/docker.sock" unless Rails.env.production?
