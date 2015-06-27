@@ -1,4 +1,4 @@
-class Api::ImagesController < ApplicationController
+class ImagesController < ApplicationController
   include GenericMethodsConcern
   include HttpResponseConcern
 

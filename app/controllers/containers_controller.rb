@@ -1,4 +1,4 @@
-class Api::ContainersController < ApplicationController
+class ContainersController < ApplicationController
   include GenericMethodsConcern
   include HttpResponseConcern
 
