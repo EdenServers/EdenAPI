@@ -18,7 +18,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
-  gem "codeclimate-test-reporter", require: false
   gem 'did_you_mean'
   gem 'factory_girl'
   gem 'puma'

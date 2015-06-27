@@ -24,9 +24,13 @@ class Image < ActiveRecord::Base
   end
 
   def create_docker_image
-    image = Docker::Image.create('fromImage' => self.repo)
-    self.docker_image_id=image.id
-    self.ready = true
-    self.save
+    begin
+      image = Docker::Image.create('fromImage' => self.repo)
+      self.docker_image_id = image.id
+      self.ready = true
+      self.save
+    rescue Docker::Error::ArgumentError
+      self.destroy #Self destruction : we don't need a useless image
+    end
   end
 end

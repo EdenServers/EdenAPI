@@ -1,12 +1,13 @@
 FactoryGirl.define do
-  factory :image_minecraft do
+  factory :image do
     name "Minecraft"
     description "Minecraft Server"
     repo "dernise/minecraft"
-  end
 
-  factory :image_wrong_repo do
-    name "Error"
-    repo "derniseses/minedsfsd"
+    trait :wrong_repo do
+      repo "derniseses/minedsfsd"
+    end
+
+    factory :image_wrong_repo, traits: [:wrong_repo]
   end
 end

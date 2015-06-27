@@ -17,7 +17,6 @@ require 'rails_helper'
 RSpec.describe Container, type: :model do
   describe "Starting container" do
     it "shouldn't start if container is nil" do
-
     end
   end
 end
