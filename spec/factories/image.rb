@@ -8,6 +8,13 @@ FactoryGirl.define do
       repo "derniseses/minedsfsd"
     end
 
+    factory :image_with_container do
+      after(:create) do |image|
+        image.create_docker_image
+        create(:container, image: image)
+      end
+    end
+
     factory :image_wrong_repo, traits: [:wrong_repo]
   end
 end

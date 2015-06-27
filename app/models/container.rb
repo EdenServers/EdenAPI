@@ -25,7 +25,7 @@ class Container < ActiveRecord::Base
 
   def stop
     container = get_docker_object
-    container.stop unless container.nil? || container.json['State']['Running']
+    container.stop if !container.nil? && container.json['State']['Running']
   end
 
   def get_docker_object
