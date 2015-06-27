@@ -8,7 +8,7 @@ class Api::ImagesController < ApplicationController
 
   def create
       image = Image.new(image_params)
-      image.save ? render_200_image : render_500_error(image)
+      image.save ? render_200_object(image) : render_500_error(image)
   end
 
   def delete

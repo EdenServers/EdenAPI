@@ -13,11 +13,7 @@ module HttpResponseConcern
     render :nothing, status: 200
   end
 
-  def render_200_image
-    render status: 200, json: { image: image }
-  end
-
-  def render_200_container
-    render status: 200, json: { container: container }
+  def render_200_object(object)
+    render status: 200, json: object
   end
 end
