@@ -2,13 +2,13 @@
 #
 # Table name: containers
 #
-#  id                  :INTEGER          not null, primary key
-#  name                :varchar
+#  id                  :integer          not null, primary key
+#  name                :string
 #  description         :text
 #  command             :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  docker_container_id :varchar
+#  docker_container_id :string
 #  image_id            :integer
 #
 
