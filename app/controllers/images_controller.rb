@@ -1,4 +1,4 @@
-class Api::ImagesController < ApplicationController
+class ImagesController < ApplicationController
   include GenericMethodsConcern
   include HttpResponseConcern
 
@@ -11,12 +11,12 @@ class Api::ImagesController < ApplicationController
       image.save ? render_200_object(image) : render_500_error(image)
   end
 
-  def delete
+  def destroy
     delete_object(Image, params[:id])
   end
 
   def update
-    update_object(Image, params[:id])
+    update_object(Image, params[:id], image_params)
   end
 
   private

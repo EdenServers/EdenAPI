@@ -3,7 +3,7 @@ require 'coveralls'
 Coveralls.wear!('rails')
 
 SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-#SimpleCov.minimum_coverage 95
+SimpleCov.minimum_coverage 95
 SimpleCov.start 'rails' do
   add_group 'API Controllers' , 'app/controllers/api'
 end
