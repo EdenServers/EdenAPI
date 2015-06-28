@@ -42,7 +42,7 @@ class Container < ActiveRecord::Base
 
   def get_port_bindings
     port_bindings = {}
-    self.ports.each{ |p| p["#{p.container_port}/#{p.type}"] =  [{ "HostPort"=> p.host_port.to_s }] }
+    self.ports.each{ |p| port_bindings["#{p.container_port}/#{p.port_type}"] =  [{ "HostPort"=> p.host_port.to_s }] }
     port_bindings
   end
 
@@ -53,6 +53,9 @@ class Container < ActiveRecord::Base
   def create_docker_container
     container = Docker::Container.create('Image' => self.image.docker_image_id)
     self.docker_container_id = container.id
+
+
+
     self.save
   end
 end
