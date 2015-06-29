@@ -11,8 +11,9 @@
 
 FactoryGirl.define do
   factory :port do
-    host_port 1
-    container_port 1
+    host_port 25565
+    container_port 25565
+    port_type "tcp"
   end
 
 end

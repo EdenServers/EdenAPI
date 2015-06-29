@@ -53,9 +53,6 @@ class Container < ActiveRecord::Base
   def create_docker_container
     container = Docker::Container.create('Image' => self.image.docker_image_id)
     self.docker_container_id = container.id
-
-
-
     self.save
   end
 end
