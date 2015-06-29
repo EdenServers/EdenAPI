@@ -36,7 +36,7 @@ RSpec.describe Container, type: :model do
     it "shouldn't work if container variable is nil" do
       image = FactoryGirl.create(:image_with_container)
       container = image.containers.last
-      container.docker_container_id = "random"
+      container.get_docker_object.delete(:force => true)
       container.start
       expect(container.get_docker_object).to be_nil
     end
