@@ -16,6 +16,8 @@ class Container < ActiveRecord::Base
   belongs_to :image
   has_many :ports
 
+  validates_presence_of :image, :name
+
   after_create :create_docker_container
   before_destroy :delete_docker_container
 
