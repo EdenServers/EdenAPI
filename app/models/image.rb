@@ -10,6 +10,7 @@
 #  updated_at      :datetime         not null
 #  repo            :string
 #  ready           :boolean          default(FALSE)
+#  ports           :string
 #
 
 class Image < ActiveRecord::Base

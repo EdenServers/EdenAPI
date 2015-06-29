@@ -7,6 +7,8 @@
 #  container_port :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  container_id   :integer          default(0)
+#  port_type      :string
 #
 
 FactoryGirl.define do
