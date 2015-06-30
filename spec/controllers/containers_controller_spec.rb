@@ -12,7 +12,7 @@ RSpec.describe ContainersController, type: :controller do
   end
 
   describe "POST /containers" do
-    it "should return an error if params are not valids" do
+    it "should return an error if image is nil" do
       params = {
           image_id: nil
       }
@@ -24,10 +24,38 @@ RSpec.describe ContainersController, type: :controller do
     it "should return an image if params are valids" do
       FactoryGirl.create(:image_with_container)
       params = {
-          image_id: Container.last.image_id
+          image_id: Container.last.image_id,
+          name: 'minecraft'
       }
 
       post 'create', container: params
+      expect_status(200)
+    end
+
+    it "should return an error if params are not valids" do
+      FactoryGirl.create(:image_with_container)
+      params = {
+          image_id: Container.last.image_id,
+      }
+
+      post 'create', container: params
+      expect_status(500)
+    end
+
+    it "should map a number of ports if params are valids and ports are given" do
+      FactoryGirl.create(:image_with_container)
+      params = {
+          image_id: Container.last.image_id,
+          name: 'minecraft',
+          ports: "[{\"host_port\": 25565, \"container_port\": 25565, \"port_type\": \"tcp\"}]"
+      }
+
+      post 'create', container: params
+
+      expect(Container.last.ports).not_to be_empty
+      expect(Container.last.ports.last.host_port).to equal(25565)
+      expect(Container.last.ports.last.container_port).to equal(25565)
+      expect(Container.last.ports.last.port_type.to_s).to be == "tcp"
       expect_status(200)
     end
   end

@@ -2,14 +2,15 @@
 #
 # Table name: images
 #
-#  id              :INTEGER          not null, primary key
-#  docker_image_id :varchar
-#  name            :varchar
+#  id              :integer          not null, primary key
+#  docker_image_id :string
+#  name            :string
 #  description     :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  repo            :varchar
+#  repo            :string
 #  ready           :boolean          default(FALSE)
+#  ports           :string
 #
 
 require 'rails_helper'

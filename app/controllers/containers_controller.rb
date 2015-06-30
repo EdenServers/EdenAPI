@@ -3,14 +3,25 @@ class ContainersController < ApplicationController
   include HttpResponseConcern
 
   def index
-    render json: Container.all
+    render json: Container.all.to_json(:include => :ports)
   end
 
   def create
     begin
       container = Container.new(container_params)
       container.image = Image.find(params[:container][:image_id])
-      container.save ? render_200_object(container) : render_500_error(container)
+
+      if container.save
+        unless params[:container][:ports].nil?
+          given_ports = JSON.parse(params[:container][:ports])
+          given_ports.each { |p|
+            Port.create(host_port: p['host_port'], container_port: p['container_port'], port_type: p['port_type'], container: container)
+          }
+        end
+        render_200_object(container)
+      else
+        render_500_error(container)
+      end
     rescue ActiveRecord::RecordNotFound => e
       render_500_ar_not_found e
     end
