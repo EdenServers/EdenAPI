@@ -15,11 +15,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'annotate', github: 'ctran/annotate_models'
-
-
 group :development, :test do
   gem 'awesome_print'
+  gem 'annotate', github: 'ctran/annotate_models'
   gem 'byebug'
   gem 'did_you_mean'
   gem 'factory_girl'
