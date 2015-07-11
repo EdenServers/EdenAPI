@@ -86,6 +86,12 @@ RSpec.describe PortsController, type: :controller do
       expect_json({ host_port: 25565 })
       expect_status(200)
     end
+
+    it "should display an error if the port wasn't found" do
+      get :show, id: 69
+
+      expect_status(500)
+    end
   end
 
   describe "DELETE /ports/:id" do
