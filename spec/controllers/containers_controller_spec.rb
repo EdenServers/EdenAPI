@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe ContainersController, type: :controller do
+  after(:each) do
+    #Cleanup docker
+    Container.all.each { |container| container.destroy }
+  end
+
   describe "GET /containers" do
     it "should list all images" do
       FactoryGirl.create(:image_with_container)
       FactoryGirl.create(:image_with_container)
+
       get 'index'
+
       expect_status(200)
       expect_json_sizes(2)
     end
@@ -79,6 +86,16 @@ RSpec.describe ContainersController, type: :controller do
       put 'update', id: Container.last.id, container: params
       expect_status(200)
       expect_json({ name: "Test" })
+    end
+  end
+
+  describe "GET /containers/:id" do
+    it "shoud show a container" do
+      FactoryGirl.create(:image_with_container)
+      get :show, id: Container.last.id
+
+      expect_json({ name: "Test Container" })
+      expect_status(200)
     end
   end
 

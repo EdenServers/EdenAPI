@@ -15,6 +15,11 @@
 require 'rails_helper'
 
 RSpec.describe Container, type: :model do
+  after(:each) do
+    #Cleanup docker
+    Container.all.each { |container| container.destroy }
+  end
+
   describe "Creation" do
     it "should add a docker_container_id after its creation" do
       image = FactoryGirl.create(:image_with_container)
@@ -36,9 +41,15 @@ RSpec.describe Container, type: :model do
     it "shouldn't work if container variable is nil" do
       image = FactoryGirl.create(:image_with_container)
       container = image.containers.last
-      container.get_docker_object.delete(:force => true)
+
+      #Simulate like the are no attached containers
+      docker_container_id = container.docker_container_id
+      container.docker_container_id = 'wrongid'
+
       container.start
       expect(container.get_docker_object).to be_nil
+
+      container.docker_container_id = docker_container_id #Clean up
     end
 
     it "shouldn't work if it's already running" do
@@ -47,6 +58,7 @@ RSpec.describe Container, type: :model do
       container.start
       container.start
       expect(container.get_docker_object.json['State']['Running']).to be_truthy
+      container.stop
     end
 
     it "should start the container" do
@@ -54,6 +66,7 @@ RSpec.describe Container, type: :model do
       container = image.containers.last
       container.start
       expect(container.get_docker_object.json['State']['Running']).to be_truthy
+      container.stop
     end
   end
 

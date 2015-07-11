@@ -11,7 +11,8 @@ FactoryGirl.define do
     factory :image_with_container do
       after(:create) do |image|
         image.create_docker_image
-        create(:container, image: image)
+        container = create(:container, image: image)
+        create(:port, container: container)
       end
     end
 
