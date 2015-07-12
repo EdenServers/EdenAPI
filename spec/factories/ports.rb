@@ -16,6 +16,7 @@ FactoryGirl.define do
     host_port 25565
     container_port 25565
     port_type "tcp"
+    container
   end
 
 end

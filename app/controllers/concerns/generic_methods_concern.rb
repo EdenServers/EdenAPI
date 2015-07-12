@@ -11,6 +11,15 @@ module GenericMethodsConcern
     end
   end
 
+  def show_object(object, id)
+    begin
+      item = object.find(id)
+      render_200_object(item)
+    rescue ActiveRecord::RecordNotFound => e
+      render_500_ar_not_found e
+    end
+  end
+
   def update_object(object, id, params)
     begin
       item = object.find(id)

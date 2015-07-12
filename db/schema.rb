@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20150628155726) do
   create_table "ports", force: :cascade do |t|
     t.integer  "host_port"
     t.integer  "container_port"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "container_id",   default: 0
     t.string   "port_type"
   end

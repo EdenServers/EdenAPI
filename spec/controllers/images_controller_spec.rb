@@ -55,6 +55,23 @@ RSpec.describe ImagesController, type: :controller do
     end
   end
 
+  describe "GET /image/:id" do
+    it "should show an image" do
+      image = FactoryGirl.create(:image)
+      get :show, id: image.id
+
+      expect_json({ name: "Minecraft" })
+      expect_status(200)
+    end
+
+    it "should display an error if the image wasn't found" do
+      get :show, id: 69
+
+      expect_status(500)
+    end
+  end
+
+
   describe "DELETE /images/:id" do
     it "should return 500 if it can't find an image" do
       delete 'destroy', id: 69

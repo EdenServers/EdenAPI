@@ -6,6 +6,10 @@ class ImagesController < ApplicationController
     render json: Image.all
   end
 
+  def show
+    show_object(Image, params[:id])
+  end
+
   def create
       image = Image.new(image_params)
       image.save ? render_200_object(image) : render_500_error(image)
