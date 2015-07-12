@@ -46,6 +46,3 @@ gem 'dotenv-rails'
 #Required
 gem 'delayed_job_active_record'
 gem 'docker-api'
-
-#API Doc
-gem 'apipie-rails', :github => 'Apipie/apipie-rails'
