@@ -16,8 +16,6 @@ class PortsController < ApplicationController
     end
   end
 
-  api! "Displays a port"
-  param :id, Integer, required: true
   def show
     show_object(Port, params[:id])
   end

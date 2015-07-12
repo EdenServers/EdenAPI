@@ -14,7 +14,6 @@ RSpec.describe PortsController, type: :controller do
 
       get 'index'
 
-
       expect_status(200)
       expect_json_sizes(2)
     end
