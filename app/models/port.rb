@@ -12,7 +12,7 @@
 #
 
 class Port < ActiveRecord::Base
-  validates_presence_of :host_port, :container_port, :port_type
-
   belongs_to :container
+
+  validates_presence_of :host_port, :container_port, :port_type
 end

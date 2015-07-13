@@ -1,11 +1,11 @@
 module HttpResponseConcern
   extend ActiveSupport::Concern
 
-  def render_500_error(object)
+  def render_500_object_error(object)
     render status: 500, json: { error: object.errors }
   end
 
-  def render_500_ar_not_found(error)
+  def render_500_error(error)
     render status: 500, json: { error:  error }
   end
 

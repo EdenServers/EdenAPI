@@ -12,7 +12,7 @@ class ImagesController < ApplicationController
 
   def create
       image = Image.new(image_params)
-      image.save ? render_200_object(image) : render_500_error(image)
+      image.save ? render_200_object(image) : render_500_object_error(image)
   end
 
   def destroy
