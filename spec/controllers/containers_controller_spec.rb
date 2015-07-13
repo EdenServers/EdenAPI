@@ -49,6 +49,39 @@ RSpec.describe ContainersController, type: :controller do
       expect_status(500)
     end
 
+    it "should not work if the image isn't ready" do
+      image = FactoryGirl.create(:image)
+      image.ready = false
+
+      params = {
+          image_id: image.id,
+          name: 'minecraft',
+          ports: "[{\"host_port\": 25565, \"container_port\": 25565, \"port_type\": \"tcp\"}]"
+      }
+
+      post 'create', container: params
+
+      expect_status(500)
+      expect_json({ error: "image_not_ready" })
+    end
+
+    it "should create a number of environment variables if params are valid and variables are given" do
+      FactoryGirl.create(:image_with_container)
+      params = {
+          image_id: Container.last.image_id,
+          name: 'minecraft',
+          environment_variables: "[{\"key\": \"test\", \"value\": \"test\"}]"
+      }
+
+      post 'create', container: params
+
+      expect(Container.last.environment_variables).not_to be_empty
+      expect(Container.last.environment_variables.last.key).to be == "test"
+      expect(Container.last.environment_variables.last.value).to be == "test"
+
+      expect_status(200)
+    end
+
     it "should map a number of ports if params are valids and ports are given" do
       FactoryGirl.create(:image_with_container)
       params = {

@@ -3,7 +3,7 @@ class ContainersController < ApplicationController
   include HttpResponseConcern
 
   def index
-    render json: Container.all.to_json(:include => :ports)
+    render json: Container.all.to_json(:include => [:ports, :environment_variables])
   end
 
   def show
@@ -13,16 +13,21 @@ class ContainersController < ApplicationController
   def create
     begin
       container = Container.new(container_params)
-      container.image = Image.find(params[:container][:image_id])
+      image = Image.find(params[:container][:image_id])
+
+      return render_500_error 'image_not_ready' unless image.ready?
+
+      container.image = image
+      create_env_variables(container)
+      create_ports(container)
 
       if container.save
-        create_ports(container)
         render_200_object(container)
       else
-        render_500_error(container)
+        render_500_object_error(container)
       end
     rescue ActiveRecord::RecordNotFound => e
-      render_500_ar_not_found e
+      render_500_error e
     end
   end
 
@@ -46,5 +51,15 @@ class ContainersController < ApplicationController
         Port.create(host_port: p['host_port'], container_port: p['container_port'], port_type: p['port_type'], container: container)
       }
     end
+  end
+
+  def create_env_variables(container)
+    unless params[:container][:environment_variables].nil?
+      variables = JSON.parse(params[:container][:environment_variables])
+      variables.each { |env|
+        EnvironmentVariable.create(key: env['key'], value: env['value'], container: container)
+      }
+    end
+
   end
 end

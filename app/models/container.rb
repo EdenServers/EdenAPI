@@ -15,6 +15,7 @@
 class Container < ActiveRecord::Base
   belongs_to :image
   has_many :ports
+  has_many :environment_variables
 
   validates_presence_of :image, :name
 
@@ -48,12 +49,18 @@ class Container < ActiveRecord::Base
     port_bindings
   end
 
+  def get_environment_variables
+    environment_variables = []
+    self.environment_variables.each { |env| environment_variables << "#{env.key}=#{env.value}" }
+    environment_variables
+  end
+
   def delete_docker_container
     self.get_docker_object.delete(:force => true)
   end
 
   def create_docker_container
-    container = Docker::Container.create('Image' => self.image.docker_image_id)
+    container = Docker::Container.create('Image' => self.image.docker_image_id, 'Env' => get_environment_variables)
     self.docker_container_id = container.id
     self.save
   end

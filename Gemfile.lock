@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/Apipie/apipie-rails.git
-  revision: becc75b5f02663a1473ee94c0fbb98a82a2ce7bd
-  specs:
-    apipie-rails (0.3.4)
-      json
-
-GIT
   remote: git://github.com/ctran/annotate_models.git
   revision: d878a5b784ee0f703e9ee677bc0231dc24159512
   specs:
@@ -252,7 +245,6 @@ PLATFORMS
 DEPENDENCIES
   airborne
   annotate!
-  apipie-rails!
   awesome_print
   better_errors
   binding_of_caller
