@@ -43,6 +43,7 @@ end
 #Config
 gem 'dotenv-rails'
 gem 'foreman'
+gem 'passenger'
 
 #Required
 gem 'delayed_job_active_record'

@@ -130,6 +130,9 @@ GEM
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    passenger (5.0.13)
+      rack
+      rake (>= 0.8.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -264,6 +267,7 @@ DEPENDENCIES
   foreman
   jbuilder (~> 2.0)
   jquery-rails
+  passenger
   pry-rails
   puma
   rails (= 4.2.1)
