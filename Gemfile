@@ -42,6 +42,7 @@ end
 
 #Config
 gem 'dotenv-rails'
+gem 'foreman'
 
 #Required
 gem 'delayed_job_active_record'
