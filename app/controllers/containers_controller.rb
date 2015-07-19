@@ -39,6 +39,26 @@ class ContainersController < ApplicationController
     update_object(Container, params[:id], container_params)
   end
 
+  def start
+    begin
+      container = Container.find(params[:container_id])
+      container.start
+      render_200_object container
+    rescue ActiveRecord::RecordNotFound => e
+      render_500_error e
+    end
+  end
+
+  def stop
+    begin
+      container = Container.find(params[:container_id])
+      container.stop
+      render_200_object container
+    rescue ActiveRecord::RecordNotFound => e
+      render_500_error e
+    end
+  end
+
   private
   def container_params
     params.require(:container).permit(:name, :description, :image_id, :command)

@@ -100,6 +100,37 @@ RSpec.describe ContainersController, type: :controller do
     end
   end
 
+  describe "GET /containers/:container_id/start" do
+    it "should return a 500 error if it can't find the container" do
+      get 'start', container_id: 69
+      expect_status(500)
+    end
+
+    it "should start the container" do
+      FactoryGirl.create(:image_with_container)
+      get 'start', container_id: Container.last.id
+
+      expect_status(200)
+      expect(Container.last.get_docker_object.json['State']['Running']).to be_truthy
+    end
+  end
+
+  describe "GET /containers/:container_id/stop" do
+    it "should return a 500 error if it can't find the container" do
+      get 'stop', container_id: 69
+      expect_status(500)
+    end
+
+    it "should start the container" do
+      FactoryGirl.create(:image_with_container)
+      Container.last.start
+      get 'stop', container_id: Container.last.id
+
+      expect_status(200)
+      expect(Container.last.get_docker_object.json['State']['Running']).to_not be_truthy
+    end
+  end
+
   describe "PUT /containers/:id" do
     it "should return a 500 error if it can't find the object" do
       params = {
