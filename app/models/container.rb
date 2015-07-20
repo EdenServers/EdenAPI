@@ -56,7 +56,7 @@ class Container < ActiveRecord::Base
   end
 
   def delete_docker_container
-    self.get_docker_object.delete(:force => true)
+    self.get_docker_object.delete(:force => true) unless self.get_docker_object.nil?
   end
 
   def create_docker_container
