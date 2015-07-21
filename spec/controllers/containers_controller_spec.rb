@@ -70,7 +70,7 @@ RSpec.describe ContainersController, type: :controller do
       params = {
           image_id: Container.last.image_id,
           name: 'minecraft',
-          environment_variables: "[{\"key\": \"test\", \"value\": \"test\"}]"
+          environment_variables_list: "[{\"key\": \"test\", \"value\": \"test\"}]"
       }
 
       post 'create', container: params
@@ -87,7 +87,7 @@ RSpec.describe ContainersController, type: :controller do
       params = {
           image_id: Container.last.image_id,
           name: 'minecraft',
-          ports: "[{\"host_port\": 25565, \"container_port\": 25565, \"port_type\": \"tcp\"}]"
+          ports_list: "[{\"host_port\": 25565, \"container_port\": 25565, \"port_type\": \"tcp\"}]"
       }
 
       post 'create', container: params

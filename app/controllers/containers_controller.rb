@@ -18,8 +18,6 @@ class ContainersController < ApplicationController
       return render_500_error 'image_not_ready' unless image.ready?
 
       container.image = image
-      create_env_variables(container)
-      create_ports(container)
 
       if container.save
         render_200_object(container)
@@ -61,25 +59,6 @@ class ContainersController < ApplicationController
 
   private
   def container_params
-    params.require(:container).permit(:name, :description, :image_id, :command)
-  end
-
-  def create_ports(container)
-    unless params[:container][:ports].nil?
-      given_ports = JSON.parse(params[:container][:ports])
-      given_ports.each { |p|
-        Port.create(host_port: p['host_port'], container_port: p['container_port'], port_type: p['port_type'], container: container)
-      }
-    end
-  end
-
-  def create_env_variables(container)
-    unless params[:container][:environment_variables].nil?
-      variables = JSON.parse(params[:container][:environment_variables])
-      variables.each { |env|
-        EnvironmentVariable.create(key: env['key'], value: env['value'], container: container)
-      }
-    end
-
+    params.require(:container).permit(:name, :description, :image_id, :command, :environment_variables_list, :ports_list)
   end
 end
