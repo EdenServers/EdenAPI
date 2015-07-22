@@ -97,7 +97,7 @@ RSpec.describe Container, type: :model do
       container.start
       container.get_docker_object.stop
       Container.check_running_job(container.id)
-      expect(container.running).to be_falsey
+      expect(Container.last.running).to be_falsey
     end
   end
 end
