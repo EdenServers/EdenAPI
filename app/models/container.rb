@@ -27,14 +27,31 @@ class Container < ActiveRecord::Base
 
   def start
     container = get_docker_object
-    unless container.nil? || container.json['State']['Running']
+    unless container.nil? || running
       container.start("PortBindings"=> get_port_bindings)
+      self.running = true
+      Container.delay(run_at: 15.seconds.from_now).check_running_job(self.id)
+      self.save
     end
   end
 
   def stop
     container = get_docker_object
-    container.stop if !container.nil? && container.json['State']['Running']
+    if !container.nil? && running
+      container.stop
+      self.running = false
+      self.save
+    end
+  end
+
+  def self.check_running_job(container_id)
+    container = Container.find(container_id)
+    if !container.get_docker_object.json['State']['Running']
+      container.running = false
+      container.save
+    else
+      Container.delay(run_at: 15.seconds.from_now).check_running_job(container_id)
+    end
   end
 
   def get_docker_object

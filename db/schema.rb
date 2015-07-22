@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712155001) do
+ActiveRecord::Schema.define(version: 20150722151728) do
 
   create_table "containers", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.text     "command"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "docker_container_id"
     t.integer  "image_id"
+    t.boolean  "running",             default: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
