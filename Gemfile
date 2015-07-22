@@ -48,3 +48,5 @@ gem 'passenger'
 #Required
 gem 'delayed_job_active_record'
 gem 'docker-api'
+
+gem 'usagewatch', github: 'dernise/usagewatch'
