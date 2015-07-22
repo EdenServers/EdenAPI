@@ -30,11 +30,15 @@ class Container < ActiveRecord::Base
     unless container.nil? || container.json['State']['Running']
       container.start("PortBindings"=> get_port_bindings)
     end
+    self.running = true
+    self.save
   end
 
   def stop
     container = get_docker_object
     container.stop if !container.nil? && container.json['State']['Running']
+    self.running = false
+    self.save
   end
 
   def get_docker_object
