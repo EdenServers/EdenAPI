@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   resources :images
   resources :ports
 
-
+  get '/stats' => 'stats#get_stats'
 end
