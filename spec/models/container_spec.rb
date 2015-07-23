@@ -42,7 +42,7 @@ RSpec.describe Container, type: :model do
       image = FactoryGirl.create(:image_with_container)
       container = image.containers.last
 
-      #Simulate like the are no attached containers
+      #Simulate like there are no attached containers
       docker_container_id = container.docker_container_id
       container.docker_container_id = 'wrongid'
 
@@ -66,6 +66,7 @@ RSpec.describe Container, type: :model do
       container = image.containers.last
       container.start
       expect(container.get_docker_object.json['State']['Running']).to be_truthy
+      expect(container.running).to be_truthy
       container.stop
     end
   end
@@ -76,14 +77,27 @@ RSpec.describe Container, type: :model do
       container = image.containers.last
       container.stop
       expect(container.get_docker_object.json['State']['Running']).to be_falsey
+      expect(container.running).to be_falsey
     end
 
-    it "shouldn't stop the container if its running" do
+    it "should stop the container if its running" do
       image = FactoryGirl.create(:image_with_container)
       container = image.containers.last
       container.start
       container.stop
       expect(container.get_docker_object.json['State']['Running']).to be_falsey
+      expect(container.running).to be_falsey
+    end
+  end
+
+  describe "Delayed_job" do
+    it "should change the status if container is down" do
+      image = FactoryGirl.create(:image_with_container)
+      container = image.containers.last
+      container.start
+      container.get_docker_object.stop
+      Container.check_running_job(container.id)
+      expect(Container.last.running).to be_falsey
     end
   end
 end
