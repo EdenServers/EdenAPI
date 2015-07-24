@@ -1,0 +1,2 @@
+web:    passenger start -p 3000 -b 0.0.0.0 -e production
+worker: RAILS_ENV=production bundle exec rake jobs:work
