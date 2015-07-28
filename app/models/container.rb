@@ -85,6 +85,7 @@ class Container < ActiveRecord::Base
 
   #Used to delete the container from docker
   def delete_docker_container
+    self.image.delete if self.image.containers.empty?
     self.get_docker_object.delete(:force => true) unless self.get_docker_object.nil?
   end
 
