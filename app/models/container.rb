@@ -24,6 +24,7 @@ class Container < ActiveRecord::Base
   validates_presence_of :image, :name
 
   before_destroy :delete_docker_container
+  after_destroy :check_delete_image
 
   def start
     container = get_docker_object
@@ -85,8 +86,12 @@ class Container < ActiveRecord::Base
 
   #Used to delete the container from docker
   def delete_docker_container
-    self.image.delete if self.image.containers.empty?
     self.get_docker_object.delete(:force => true) unless self.get_docker_object.nil?
+  end
+
+  #Should delete the image if it has no containers linked to it.
+  def check_delete_image
+    self.image.destroy if self.image.containers.empty?
   end
 
   #Used to create the ports assigned to the container

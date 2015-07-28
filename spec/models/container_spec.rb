@@ -41,7 +41,7 @@ RSpec.describe Container, type: :model do
       container = image.containers.last
       container.destroy
       expect(container.destroyed?).to be_truthy
-      expect(Image.last).to be_empty
+      expect(Image.all).to be_empty
     end
   end
 
