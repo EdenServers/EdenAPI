@@ -21,7 +21,6 @@ group :development, :test do
   gem 'byebug'
   gem 'did_you_mean'
   gem 'factory_girl'
-  gem 'puma'
   gem 'pry-rails'
   gem 'spring'
   gem 'web-console', '~> 2.0'
