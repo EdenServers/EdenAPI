@@ -14,8 +14,8 @@
 
 class Container < ActiveRecord::Base
   belongs_to :image
-  has_many :ports
-  has_many :environment_variables
+  has_many :ports, dependent: :destroy
+  has_many :environment_variables, dependent: :destroy
 
   after_create :create_ports, :create_env_variables, :create_docker_container
 
