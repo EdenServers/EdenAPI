@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :images
   resources :ports
+  get '/ports/check/:id' => 'ports#check_port'
 
   get '/stats' => 'stats#get_stats'
 end

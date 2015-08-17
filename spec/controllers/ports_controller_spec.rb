@@ -79,6 +79,23 @@ RSpec.describe PortsController, type: :controller do
     end
   end
 
+  describe "GET /ports/check/:id" do
+    it "should return available: true if port is available" do
+      get :check_port, id: 4222
+
+      expect_status(200)
+      expect_json({ available: true })
+    end
+
+    it "should return available: false if port is not available" do
+      port = FactoryGirl.create(:port, container: image_with_container.containers.last)
+      get :check_port, id: 25565
+
+      expect_status(200)
+      expect_json({ available: false })
+    end
+  end
+
   describe "GET /ports/:id" do
     it "should show a port" do
       port = FactoryGirl.create(:port, container: image_with_container.containers.last)
