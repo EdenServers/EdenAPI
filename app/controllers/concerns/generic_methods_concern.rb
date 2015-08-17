@@ -11,10 +11,10 @@ module GenericMethodsConcern
     end
   end
 
-  def show_object(object, id)
+  def show_object(object, id, inclusions: nil)
     begin
       item = object.find(id)
-      render_200_object(item)
+      render_200_object(item, inclusions: inclusions)
     rescue ActiveRecord::RecordNotFound => e
       render_500_error e
     end

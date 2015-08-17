@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   end
 
   resources :images
-  resources :ports
+  resources :ports do
+    get 'check' => 'ports#check_port'
+  end
 
   get '/stats' => 'stats#get_stats'
 end

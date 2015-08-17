@@ -3,7 +3,7 @@ class PortsController < ApplicationController
   include HttpResponseConcern
 
   def index
-    render json: Port.all
+    render json: Port.all.to_json(:include => [:container])
   end
 
   def create
@@ -17,7 +17,7 @@ class PortsController < ApplicationController
   end
 
   def show
-    show_object(Port, params[:id])
+    show_object(Port, params[:id], inclusions: [:container])
   end
 
   def destroy
@@ -26,6 +26,15 @@ class PortsController < ApplicationController
 
   def update
     update_object(Port, params[:id], port_params)
+  end
+
+  def check_port
+    port = Port.where('host_port = ?', params[:port_id])
+    if port.empty?
+      render_200_object({available: true})
+    else
+      render_200_object({available: false, port: port.first})
+    end
   end
 
   private

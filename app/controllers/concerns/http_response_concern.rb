@@ -13,7 +13,7 @@ module HttpResponseConcern
     render status: 200, json: nil
   end
 
-  def render_200_object(object)
-    render status: 200, json: object
+  def render_200_object(object, inclusions: nil)
+    render status: 200, json: object.to_json(:include => inclusions)
   end
 end
