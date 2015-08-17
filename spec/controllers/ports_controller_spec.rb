@@ -16,6 +16,8 @@ RSpec.describe PortsController, type: :controller do
 
       expect_status(200)
       expect_json_sizes(2)
+      parsed_json = JSON(response.body)
+      expect(parsed_json.last['container']).to_not be(nil)
     end
   end
 
@@ -84,6 +86,8 @@ RSpec.describe PortsController, type: :controller do
 
       expect_json({ host_port: 25565 })
       expect_status(200)
+      parsed_json = JSON(response.body)
+      expect(parsed_json['container']).to_not be(nil)
     end
 
     it "should display an error if the port wasn't found" do
