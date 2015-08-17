@@ -29,7 +29,7 @@ class PortsController < ApplicationController
   end
 
   def check_port
-    port = Port.where('host_port = ?', params[:id])
+    port = Port.where('host_port = ?', params[:port_id])
     if port.empty?
       render_200_object({available: true})
     else
