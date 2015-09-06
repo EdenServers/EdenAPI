@@ -35,6 +35,14 @@ RSpec.describe Container, type: :model do
       container.destroy
       expect(container.destroyed?).to be_truthy
     end
+
+    it "should delete the image when the last container is deleted" do
+      image = FactoryGirl.create(:image_with_container)
+      container = image.containers.last
+      container.destroy
+      expect(container.destroyed?).to be_truthy
+      expect(Image.all).to be_empty
+    end
   end
 
   describe "Start" do
