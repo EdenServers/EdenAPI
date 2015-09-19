@@ -10,6 +10,7 @@ class PortsController < ApplicationController
     begin
       port = Port.new(port_params)
       port.container = Container.find(params[:port][:container_id])
+      port.custom = true
       port.save ? render_200_object(port) : render_500_object_error(port)
     rescue ActiveRecord::RecordNotFound => e
       render_500_error e

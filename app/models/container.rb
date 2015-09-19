@@ -28,7 +28,7 @@ class Container < ActiveRecord::Base
   def start
     container = get_docker_object
     unless container.nil? || running
-      container.start("PortBindings"=> get_port_bindings)
+      container.start({"PortBindings"=> get_port_bindings, "PublishAllPorts" => true })
       self.running = true
       Container.delay(run_at: 15.seconds.from_now).check_running_job(self.id)
       self.save
