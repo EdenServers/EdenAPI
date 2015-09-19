@@ -22,9 +22,9 @@ Then, you can simply start the API with rails s -b 0.0.0.0 on a development syst
 If you want to run this API inside a container, you will need to mount /run/docker.sock inside your container.
 We suggest you to start your api container with : 
 
-```docker run -it -v /run/docker.sock:/run/docker.sock -p 8080:3000 foo/bar /bin/sh```
+```docker run -it -v /run/docker.sock:/run/docker.sock -p 8080:3000 edenservers/edenapi /bin/sh```
   
-# Usage
+# Documentation
 
-* Still needs to be written
+Documentation is available on readme.io here : [https://edenapi.readme.io/docs](https://edenapi.readme.io/docs)
 
